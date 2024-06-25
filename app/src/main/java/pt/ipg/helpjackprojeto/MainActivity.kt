@@ -95,7 +95,21 @@ fun getBlackjackAdvice(card1: String, card2: String, dealerCard: String): String
 
     return when {
         playerTotal >= 17 -> "Stand"
-        playerTotal in 13..16 -> "Stand"
+        playerTotal >= 13 && dealerCardValue in 2..6 -> "Stand"
+        playerTotal == 12 && dealerCardValue in 4..6 -> "Stand"
+        playerTotal == 11 -> "Double"
+        playerTotal == 10 && dealerCardValue !in 10..11 -> "Double"
+        playerTotal == 9 && dealerCardValue in 3..6 -> "Double"
+        playerTotal in 5..8 -> "Hit"
+        card1Value == card2Value -> when (card1Value) {
+            8, 11 -> "Split"
+            2, 3, 7 -> if (dealerCardValue in 2..7) "Split" else "Hit"
+            6 -> if (dealerCardValue in 2..6) "Split" else "Hit"
+            4 -> if (dealerCardValue in 5..6) "Split" else "Hit"
+            9 -> if (dealerCardValue in 2..6 || dealerCardValue in 8..9) "Split" else "Stand"
+            10 -> "Stand"
+            else -> "Hit"
+        }
         else -> "Hit"
     }
 }
