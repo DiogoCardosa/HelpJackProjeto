@@ -76,7 +76,7 @@ fun BlackjackHelperApp() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            result = "Calculating..."
+            result = getBlackjackAdvice(card1, card2, dealerCard)
         }) {
             Text("Submit")
         }
@@ -86,3 +86,16 @@ fun BlackjackHelperApp() {
     }
 }
 
+fun getBlackjackAdvice(card1: String, card2: String, dealerCard: String): String {
+    val card1Value = card1.toIntOrNull() ?: return "Invalid first card value"
+    val card2Value = card2.toIntOrNull() ?: return "Invalid second card value"
+    val dealerCardValue = dealerCard.toIntOrNull() ?: return "Invalid dealer's card value"
+
+    val playerTotal = card1Value + card2Value
+
+    return when {
+        playerTotal >= 17 -> "Stand"
+        playerTotal in 13..16 -> "Stand"
+        else -> "Hit"
+    }
+}
