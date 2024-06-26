@@ -129,14 +129,9 @@ fun getBlackjackAdvice(card1: String, card2: String, dealerCard: String): String
         }
         card1Value == 1 || card2Value == 1 -> {
             val softTotal = playerTotal + 10
-            when {
-                softTotal == 18 && dealerCardValue in 9..11 -> "Hit"
-                softTotal == 18 && dealerCardValue in 3..6 -> "Double"
-                softTotal == 19 || softTotal == 20 -> "Stand"
-                softTotal == 13 || softTotal == 14 -> "Hit"
-                softTotal == 15 || softTotal == 16 -> "Hit"
-                softTotal == 17 && dealerCardValue !in 2..6 -> "Hit"
-                softTotal == 18 -> "Stand"
+            when (softTotal) {
+                19, 20 -> "Stand"
+                13, 14 -> "Hit"
                 else -> "Hit"
             }
         }
